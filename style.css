@@ -1,8 +1,34 @@
 html, body {
+  text-align: center;
   margin: 0;
   padding: 0;
+  background-color: black;
 }
 
 canvas {
   display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  color:white;
+  font-size: 60pt;
+}
+
+h2 {
+  color:white;
+  font-size: 45pt;
+}
+
+p {
+  color:white;
+  font-size: 20pt;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
 }
