@@ -1,7 +1,17 @@
 {
-    "Health":[
+    "health":[
         {
-            "day":"Monday",
+            "Day":"Sunday",
+            "Sleep":6,
+            "Weight":154,
+            "Exercises":[{
+                "Running":0,
+                "Jogging":0,
+                "Walking":0
+            }]
+        },
+        {
+            "Day":"Monday",
             "Sleep":7,
             "Weight":155,
             "Exercises":[{
@@ -11,7 +21,7 @@
             }]
         },
         {
-            "day":"Tuesday",
+            "Day":"Tuesday",
             "Sleep":6,
             "Weight":155,
             "Exercises":[{
@@ -21,7 +31,7 @@
             }]
         },
         {
-            "day":"Wednesday",
+            "Day":"Wednesday",
             "Sleep":9,
             "Weight":154,
             "Exercises":[{
@@ -31,7 +41,7 @@
             }]
         },
         {
-            "day":"Thursday",
+            "Day":"Thursday",
             "Sleep":9,
             "Weight":154,
             "Exercises":[{
@@ -41,7 +51,7 @@
             }]
         },
         {
-            "day":"Friday",
+            "Day":"Friday",
             "Sleep":8,
             "Weight":153,
             "Exercises":[{
@@ -51,19 +61,9 @@
             }]
         },
         {
-            "day":"Saturday",
+            "Day":"Saturday",
             "Sleep":10,
             "Weight":153,
-            "Exercises":[{
-                "Running":0,
-                "Jogging":0,
-                "Walking":0
-            }]
-        },
-        {
-            "day":"Sunday",
-            "Sleep":6,
-            "Weight":154,
             "Exercises":[{
                 "Running":0,
                 "Jogging":0,

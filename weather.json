@@ -1,46 +1,53 @@
 {
     "forecasts":[
         {
-            "day":"Monday",
+            "Day":"Sunday",
+            "Condition":"Sunny",
+            "Current":11,
+            "High":12,
+            "Low":-5
+        },
+        {
+            "Day":"Monday",
+            "Condition":"Sunny",
             "Current":7,
             "High":12,
             "Low":0
         },
         {
-            "day":"Tuesday",
+            "Day":"Tuesday",
+            "Condition":"Cloudy",
             "Current":5,
             "High":9,
             "Low":-6
         },
         {
-            "day":"Wednesday",
+            "Day":"Wednesday",
+            "Condition":"Cloudy",
             "Current":2,
             "High":8,
             "Low":-3
         },
         {
-            "day":"Thursday",
+            "Day":"Thursday",
+            "Condition":"Rainy",
             "Current":4,
             "High":12,
             "Low":-3
         },
         {
-            "day":"Friday",
+            "Day":"Friday",
+            "Condition":"Cloudy",
             "Current":-1,
             "High":4,
             "Low":-3
         },
         {
-            "day":"Saturday",
+            "Day":"Saturday",
+            "Condition":"Sunny",
             "Current":4,
             "High":8,
             "Low":-4
-        },
-        {
-            "day":"Sunday",
-            "Current":11,
-            "High":12,
-            "Low":-5
         }
     ]
 }

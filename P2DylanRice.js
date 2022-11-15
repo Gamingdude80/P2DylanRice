@@ -1,6 +1,7 @@
 let calendar,health,weather;
 
-const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const weekdays = ["Sunday","Monday","Tuesday","Wednesday",
+                  "Thursday","Friday","Saturday"];
 const months = ["January","February","March","April","May","June",
                 "July","August","September","October","November","December"];
 
@@ -9,10 +10,17 @@ function setup() {
   noStroke();
   textAlign(CENTER);
   getSchedule("calendar.json");
+  getWeather("weather.json");
+  getHealth("health.json");
+
 }
 
 function draw() {
+  while(weather == undefined || 
+    health == undefined || calendar == undefined)
+    return;
   let date = new Date();
+  let day = date.getDay();
   background(173, 216, 230);
   let small = 175,large = 390,medium = 240;
   let width = 300;
@@ -34,12 +42,11 @@ function draw() {
   //Weather data
   fill(0);
   textSize(30);
-  let cond = "Sunny";
-  let current = 21;
-  let high = 21;
-  let low = 5;
-  text(cond + "   " + current + char(176) + "C   H:"+ high + char(176) + "  L:" + low + char(176),640,90);
+  text(weather[day].Condition + "   " + weather[day].Current 
+        + char(176) + "C   H:"+ weather[day].High + char(176) 
+        + "  L:" + weather[day].Low + char(176),640,90);
 
+  //Session time
   fill(0);
   textSize(20);
   let start = millis()/1000;
@@ -59,7 +66,8 @@ function draw() {
   minimizers(1250, 30);
   fill(0);
   textSize(30);
-  text(months[date.getMonth()] + " " + date.getDate()+ ", " + date.getFullYear(),1100,70);
+  text(months[date.getMonth()] + " " + date.getDate()+ ", " 
+        + date.getFullYear(),1100,70);
 
   //News block
   fill(255);
@@ -131,4 +139,25 @@ async function getSchedule(filename){
     days[weekdays[x]] = data[weekdays[x]]
   }
   console.log(days);
+  calendar = days;
+}
+async function getWeather(filename){
+  const response = await fetch("./"+filename);
+  let data = await response.json();
+  let days = [];
+  for(let x = 0;x < 7;x++){
+    days.push(data.forecasts[x]);
+  }
+  console.log(days);
+  weather = days;
+}
+async function getHealth(filename){
+  const response = await fetch("./"+filename);
+  let data = await response.json();
+  let days = [];
+  for(let x = 0;x < 7;x++){
+    days.push(data.health[x]);
+  }
+  console.log(days);
+  health = days;
 }
