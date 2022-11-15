@@ -1,0 +1,31 @@
+{
+    "Sunday":[
+        
+    ],
+    "Monday":[
+        "clean bathroom",
+        "Run dishwasher"
+    ],
+    "Tuesday":[
+        "Pick up John at airport",
+        "Deliver cookies to bake sale",
+        "Pick up groceries"
+    ],
+    "Wednesday":[
+        "Pick up dry cleaning"
+    ],
+    "Thursday":[
+        "Defragment hard drive",
+        "Have car checked at garage"
+    ],
+    "Friday":[
+        "Drop off mail",
+        "Pick up packages",
+        "Build computer"
+    ],
+    "Saturday":[
+        "Brunch with Jamie",
+        "Tennis lessons at 4"
+    ]
+}
+

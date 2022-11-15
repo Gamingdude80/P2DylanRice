@@ -14,11 +14,14 @@ canvas {
 h1 {
   color:white;
   font-size: 60pt;
+  margin-bottom: -55px;
+  margin-top: 20px;
 }
 
 h2 {
   color:white;
   font-size: 45pt;
+  margin-bottom: -5px;
 }
 
 p {
