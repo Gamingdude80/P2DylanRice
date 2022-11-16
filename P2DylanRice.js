@@ -18,9 +18,9 @@ function setup() {
   getNews("news.json");
 
   //Initialize camera
-  //capture = createCapture(VIDEO);
-  //capture.size(1280,720);
-  //capture.hide();
+  capture = createCapture(VIDEO);
+  capture.size(1280,720);
+  capture.hide();
 
   mic = loadImage("./microphone.png");
   facebook = loadImage("./facebook.png");
@@ -41,13 +41,11 @@ function draw() {
   let smooth = 20;
 
   //Webcam for mirror. Flips to be mirror like
-  /*
   translate(1280,0);
   scale(-1,1);
   image(capture, 0, 0,1280,720);
   translate(1280,0);
   scale(-1,1);
-  */
 
   //Initial block background
   fill(255,255,255,transparency);
@@ -74,8 +72,8 @@ function draw() {
   fill(0);
   textSize(30);
   text(weather[day].Condition + "   " + weather[day].Current 
-        + char(176) + "C   H:"+ weather[day].High + char(176) 
-        + "  L:" + weather[day].Low + char(176),640,110);
+        + char(176) + "C   H: "+ weather[day].High + char(176) 
+        + "  L: " + weather[day].Low + char(176),640,110);
 
   //Session time
   fill(0);
@@ -84,7 +82,7 @@ function draw() {
   let inc = "seconds";
   if(start > 59){
     start /= 60
-    if(start > 1)
+    if(start > 1 && start < 2)
       inc = "minutes"
     else
       inc = "minute"
