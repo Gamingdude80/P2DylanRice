@@ -2,6 +2,9 @@ let calendar,health,weather,news;
 let capture,mic,facebook,twitter,pfp;
 let calIcon,healthIcon,messageIcon,newsIcon,socialIcon;
 let calenD = true,newsD = true,msgD = true,socD = true,healthD = true;
+let firIconX = 400,firIconY = 640;
+let disp1 = false,disp2 = false,disp3 = false,disp4 = false,disp5 = false;
+let space = 100;
 
 const weekdays = ["Sunday","Monday","Tuesday","Wednesday",
                   "Thursday","Friday","Saturday"];
@@ -23,6 +26,8 @@ function setup() {
   capture = createCapture(VIDEO);
   capture.size(1280,720);
   capture.hide();
+
+  //Load icon images
   calIcon = loadImage("./icons/calendar.png");
   healthIcon = loadImage("./icons/health.png");
   messageIcon = loadImage("./icons/message.png");
@@ -156,6 +161,18 @@ function draw() {
     minimizers(330, 520);
     displaySocials(60,515);
   }
+
+  //Displays icons when menus minimized
+  if(disp1)
+    iconDisplay(firIconX,firIconY,socialIcon);
+  if(disp2)
+    iconDisplay(firIconX+space,firIconY,messageIcon);
+  if(disp3)
+    iconDisplay(firIconX+space*2,firIconY,healthIcon);
+  if(disp4)
+    iconDisplay(firIconX+space*3,firIconY,calIcon);
+  if(disp5)
+    iconDisplay(firIconX+space*4,firIconY,newsIcon);
 }
 
 
@@ -166,6 +183,7 @@ function drawLine(x1,y1,x2,y2){
   noStroke();
 }
 
+//Makes the buttons for minimizing windows
 function minimizers(x,y){
   fill(255);
   stroke(10);
@@ -174,24 +192,66 @@ function minimizers(x,y){
   noStroke();
 }
 
+//Detects where user clicks to minimize menus and select icons
 function mouseClicked(){
+  let size = 60;
   if(mouseX > 315 && mouseX < 345 && mouseY > 505 && mouseY < 535){
     socD = false;
+    disp1 = true;
   }
   else if(mouseX > 315 && mouseX < 345 && mouseY > 290 && mouseY < 320){
     msgD = false;
+    disp2 = true;
   }
   else if(mouseX > 315 && mouseX < 345 && mouseY > 20 && mouseY < 50){
     healthD = false;
+    disp3 = true;
   }
   else if(mouseX > 1235 && mouseX < 1265 && mouseY > 20 && mouseY < 50){
     calenD = false;
+    disp4 = true;
   }
   else if(mouseX > 1235 && mouseX < 1265 && mouseY > 290 && mouseY < 320){
     newsD = false;
+    disp5 = true;
+  }
+  else if(mouseX > firIconX-size && mouseX < firIconX+size && 
+          mouseY > firIconY-size && mouseY < firIconY+size){
+    socD = true;
+    disp1 = false;
+  }
+  else if(mouseX > firIconX-size+space && mouseX < firIconX+size+space &&
+          mouseY > firIconY-size && mouseY < firIconY+size){
+    msgD = true;
+    disp2 = false;
+  }
+  else if(mouseX > firIconX-size+space*2 && mouseX < firIconX+size+space*2 &&
+          mouseY > firIconY-size && mouseY < firIconY+size){
+    healthD = true;
+    disp3 = false;
+  }
+  else if(mouseX > firIconX-size+space*3 && mouseX < firIconX+size+space*3 &&
+          mouseY > firIconY-size && mouseY < firIconY+size){
+    calenD = true;
+    disp4 = false;
+  }
+  else if(mouseX > firIconX-size+space*4 && mouseX < firIconX+size+space*4 &&
+          mouseY > firIconY-size && mouseY < firIconY+size){
+    newsD = true;
+    disp5 = false;
   }
 }
 
+//Function to display a given icon
+function iconDisplay(x,y,icon){
+  let scale = 7;
+  if(icon == calIcon)
+    scale = 13;
+  image(icon,x,y,icon.width/scale,icon.height/scale);
+}
+
+//Makes a grid pattern in the calendar window
+//Unused
 function calendarGrid(x,y){
   fill(0);
   stroke(10);
@@ -205,7 +265,7 @@ function calendarGrid(x,y){
 }
 
 
-//Set of display function for the individual UI elements
+//Displays the calendar to do items
 function displayTODO(list,x,y){
   textSize(20);
   textAlign(LEFT);
@@ -229,6 +289,7 @@ function displayTODO(list,x,y){
   textSize(30);
 }
 
+//Displays the health menu items
 function displayHealth(day,x,y){
   textAlign(RIGHT);
   let times = health[day];
@@ -240,6 +301,7 @@ function displayHealth(day,x,y){
   textAlign(CENTER);
 }
 
+//Displays the news headlines for the news menu
 function displayNews(list,x,y){
   textSize(20);
   textAlign(LEFT);
@@ -258,6 +320,7 @@ function displayNews(list,x,y){
   textSize(30);
 }
 
+//Renders and displays message box
 function displayMessages(x,y){
   let ratio = 15;
   textAlign(LEFT);
@@ -278,6 +341,7 @@ function displayMessages(x,y){
   image(mic,x+215,y-27,mic.width/ratio,mic.height/ratio);
 }
 
+//Renders and displays the social media box
 function displaySocials(x,y){
   let ratioT = 50;
   let ratioF = 17;
