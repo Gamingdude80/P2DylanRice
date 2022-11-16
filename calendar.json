@@ -9,14 +9,16 @@
     "Tuesday":[
         "Pick up John at airport",
         "Deliver cookies to bake sale",
-        "Pick up groceries"
+        "Pick up groceries",
+        "Return movie rentals"
     ],
     "Wednesday":[
         "Pick up dry cleaning"
     ],
     "Thursday":[
         "Defragment hard drive",
-        "Have car checked at garage"
+        "Have car checked at garage",
+        "Run laundry"
     ],
     "Friday":[
         "Drop off mail",
