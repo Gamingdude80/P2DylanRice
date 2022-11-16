@@ -1,5 +1,7 @@
 let calendar,health,weather,news;
 let capture,mic,facebook,twitter,pfp;
+let calIcon,healthIcon,messageIcon,newsIcon,socialIcon;
+let calenD = true,newsD = true,msgD = true,socD = true,healthD = true;
 
 const weekdays = ["Sunday","Monday","Tuesday","Wednesday",
                   "Thursday","Friday","Saturday"];
@@ -12,20 +14,24 @@ function setup() {
   textAlign(CENTER);
 
   //Get data from files
-  getSchedule("calendar.json");
-  getWeather("weather.json");
-  getHealth("health.json");
-  getNews("news.json");
+  getSchedule("data/calendar.json");
+  getWeather("data/weather.json");
+  getHealth("data/health.json");
+  getNews("data/news.json");
 
   //Initialize camera
   capture = createCapture(VIDEO);
   capture.size(1280,720);
   capture.hide();
-
-  mic = loadImage("./microphone.png");
-  facebook = loadImage("./facebook.png");
-  twitter = loadImage("./twitter.png");
-  pfp =loadImage("./pfp.png");
+  calIcon = loadImage("./icons/calendar.png");
+  healthIcon = loadImage("./icons/health.png");
+  messageIcon = loadImage("./icons/message.png");
+  newsIcon = loadImage("./icons/news.png");
+  socialIcon = loadImage("./icons/social.png");
+  mic = loadImage("./icons/microphone.png");
+  facebook = loadImage("./icons/facebook.png");
+  twitter = loadImage("./icons/twitter.png");
+  pfp =loadImage("./icons/pfp.png");
 }
 
 function draw() {
@@ -90,55 +96,66 @@ function draw() {
   text("Session Time: " + int(start) + " " + inc,640,140);
 
   //Calendar block
-  fill(255,255,255,transparency);
-  rect(950,30,width,medium,smooth);
-  minimizers(1250, 35);
-  fill(0);
-  textSize(30);
-  text(months[date.getMonth()] + " " + date.getDate()+ ", " 
-        + date.getFullYear(),1100,70);
-  displayTODO(calendar[weekdays[day]], 965, 90);
-  drawLine(970, 80, 1230, 80);
-
-  //News block
-  fill(255,255,255,transparency);
-  rect(950,300,width,large,smooth);
-  minimizers(1250, 305);
-  fill(0);
-  text("News for Today",1100,330);
-  displayNews(news, 965, 350);
-  drawLine(970, 341, 1230, 341);
+  if(calenD){ 
+    fill(255,255,255,transparency);
+    rect(950,30,width,medium,smooth);
+    minimizers(1250, 35);
+    fill(0);
+    textSize(30);
+    text(months[date.getMonth()] + " " + date.getDate()+ ", " 
+          + date.getFullYear(),1100,70);
+    displayTODO(calendar[weekdays[day]], 965, 90);
+    drawLine(970, 80, 1230, 80);
+  }
+  if(newsD){
+    //News block
+    fill(255,255,255,transparency);
+    rect(950,300,width,large,smooth);
+    minimizers(1250, 305);
+    fill(0);
+    textSize(30);
+    text("News for Today",1100,330);
+    displayNews(news[day], 965, 350);
+    drawLine(970, 341, 1230, 341);
+  }
 
   //Health block
-  textAlign(LEFT);
-  fill(255,255,255,transparency);
-  rect(30,30,width,medium,smooth);
-  minimizers(330, 35);
-  fill(0);
-  text("Sleep time:",40,70);
-  text("Weight:",40,105);
+  if(healthD){
+    textAlign(LEFT);
+    fill(255,255,255,transparency);
+    rect(30,30,width,medium,smooth);
+    minimizers(330, 35);
+    fill(0);
+    textSize(30);
+    text("Sleep time:",40,70);
+    text("Weight:",40,105);
 
-  drawLine(40,115,320,115);
-  textSize(25);
-  text("Walk:",45,185);
-  text("Run:",45,215);
-  text("Jog:",45,245);
-  displayHealth(day,315, 70);
-  textSize(30);
-  textAlign(CENTER);
-  text("Exercises",170,150);
+    drawLine(40,115,320,115);
+    textSize(25);
+    text("Walk:",45,185);
+    text("Run:",45,215);
+    text("Jog:",45,245);
+    displayHealth(day,315, 70);
+    textSize(30);
+    textAlign(CENTER);
+    text("Exercises",170,150);
+  }
 
   //Message block
-  fill(255,255,255,transparency);
-  rect(30,300,width,small,smooth);
-  minimizers(330, 305);
-  displayMessages(40,330);
+  if(msgD){
+    fill(255,255,255,transparency);
+    rect(30,300,width,small,smooth);
+    minimizers(330, 305);
+    displayMessages(40,330);
+  }
 
   //Media block
-  fill(255,255,255,transparency);
-  rect(30,515,width,small,smooth);
-  minimizers(330, 520);
-  displaySocials(60,515);
+  if(socD){
+    fill(255,255,255,transparency);
+    rect(30,515,width,small,smooth);
+    minimizers(330, 520);
+    displaySocials(60,515);
+  }
 }
 
 
@@ -155,6 +172,24 @@ function minimizers(x,y){
   circle(x,y,20);
   line(x-5,y,x+5,y);
   noStroke();
+}
+
+function mouseClicked(){
+  if(mouseX > 315 && mouseX < 345 && mouseY > 505 && mouseY < 535){
+    socD = false;
+  }
+  else if(mouseX > 315 && mouseX < 345 && mouseY > 290 && mouseY < 320){
+    msgD = false;
+  }
+  else if(mouseX > 315 && mouseX < 345 && mouseY > 20 && mouseY < 50){
+    healthD = false;
+  }
+  else if(mouseX > 1235 && mouseX < 1265 && mouseY > 20 && mouseY < 50){
+    calenD = false;
+  }
+  else if(mouseX > 1235 && mouseX < 1265 && mouseY > 290 && mouseY < 320){
+    newsD = false;
+  }
 }
 
 function calendarGrid(x,y){
@@ -209,11 +244,17 @@ function displayNews(list,x,y){
   textSize(20);
   textAlign(LEFT);
   let tempStr = ""
-  for(let z = 0;z < list.length;z++){
-    tempStr += list[z] + "\n\n";
+  if(list.length > 0){
+    for(let z = 0;z < list.length;z++){
+      tempStr += list[z] + "\n\n";
+    }
+    text(tempStr,x,y,290);
+    textAlign(CENTER);
+  }else{
+    textAlign(CENTER);
+    text("No news updates available at this moment.",
+          x-10,y,290);
   }
-  text(tempStr,x,y,290);
-  textAlign(CENTER);
   textSize(30);
 }
 
@@ -226,6 +267,7 @@ function displayMessages(x,y){
   rect(x+70,y+70,210,40,20);
   noStroke();
   fill(0);
+  textSize(30);
   text("\u{02190}",x,y);
   text("Dad",x*2,y+2);
   drawLine(x, y+10, x+280, y+10);
@@ -268,7 +310,6 @@ async function getSchedule(filename){
   for(let x = 0;x < 7;x++){
     days[weekdays[x]] = data[weekdays[x]]
   }
-  console.log(days);
   calendar = days;
 }
 async function getWeather(filename){
@@ -278,7 +319,6 @@ async function getWeather(filename){
   for(let x = 0;x < 7;x++){
     days.push(data.forecasts[x]);
   }
-  console.log(days);
   weather = days;
 }
 async function getHealth(filename){
@@ -288,12 +328,14 @@ async function getHealth(filename){
   for(let x = 0;x < 7;x++){
     days.push(data.health[x]);
   }
-  console.log(days);
   health = days;
 }
 async function getNews(filename){
   const response = await fetch("./"+filename);
   let data = await response.json();
-  console.log(data.Headlines);
-  news = data.Headlines;
+  let headlines = [];
+  for(let x = 0;x < 7;x++){
+    headlines.push(data[weekdays[x]]);
+  }
+  news = headlines;
 }
